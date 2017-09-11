@@ -87,3 +87,37 @@ We have added
   - react-apollo
 
 Apollo is an amazing tool that allows our react-application to make queries and mutations to our graph.cool db. It gives us a HOC, which gives our components the integration.
+
+// dependencies
+
+`yarn add apollo-client graphql-tag react-apollo recompose`
+
+Create your ApolloProvider and wrap your Router with it
+```
+  <ApolloProvider client={client}>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
+  </ApolloProvider>
+```
+
+Your react application now has access to your graph.cool API.
+Let's use the query for all movies to see if it's working.
+
+We are using the `recompose` lib to craft an array of nested HOCS. Recompose allows us to compose multiple components together in an awesome manner.
+
+```
+const fetchAllMovies = gql`query allMovies {
+  allMovies {
+    id
+    title
+  }
+}`
+const enhancer = compose(
+  graphql(fetchAllMovies)
+)
+
+export default enhancer(Movies)
+```
+
+Success! Apply a fetch to the actors, before moving on to the mutation.
