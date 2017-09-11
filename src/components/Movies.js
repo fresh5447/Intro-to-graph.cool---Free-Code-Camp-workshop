@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import {compose} from 'recompose'
+import AddMovie from '../containers/AddMovie'
 
 const Movies = (props) =>
   <div>
@@ -12,6 +13,9 @@ const Movies = (props) =>
       props.data.allMovies.map(m => <h3> {m.title}</h3>)
     )
   }
+  <div>
+    <AddMovie />
+  </div>
   </div>
 
 const fetchAllMovies = gql`query allMovies {

@@ -91,7 +91,7 @@ Apollo is an amazing tool that allows our react-application to make queries and 
 // dependencies
 
 `yarn add apollo-client graphql-tag react-apollo recompose`
-
+Branch: `stage_1_apollo_client`
 Create your ApolloProvider and wrap your Router with it
 ```
   <ApolloProvider client={client}>
@@ -121,3 +121,10 @@ export default enhancer(Movies)
 ```
 
 Success! Apply a fetch to the actors, before moving on to the mutation.
+
+----
+  Mutations
+----
+Checkout to branch `stage_2_apollo_mutations`
+We now have a form for a new movie, and a new actor.
+In this step we will hook the containers up to graph.cool

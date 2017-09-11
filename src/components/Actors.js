@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import {compose} from 'recompose'
+import AddActor from '../containers/AddActor'
 
 const Actors = (props) =>
   <div>
@@ -12,6 +13,9 @@ const Actors = (props) =>
         props.data.allActors.map(a => <h3> {a.name}</h3>)
       )
     }
+    <div>
+      <AddActor />
+    </div>
   </div>
 
 const fetchAllActors = gql`query allActors {
