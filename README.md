@@ -67,6 +67,16 @@ a graphql server based on graphql spec
   - Explore the code generator
 
 ----
+### Resources
+----
+
+  - [A more indepth repo that includes Auth0](https://github.com/fresh5447/Rotten-Tomatoes)
+  - [graph.cool tutorials](https://www.graph.cool/docs/tutorials/)
+  - [graph.cool slack community](https://slack.graph.cool/)
+  - [How to graphql](https://www.howtographql.com/)
+  - [Building React Apps with GraphQL, Graphcool & Apollo](https://dev-blog.apollodata.com/building-react-apps-with-graphql-graphcool-apollo-a54215ccd202)
+
+----
 ### On to the repo
 ----
   React Router 4 based architecture.
