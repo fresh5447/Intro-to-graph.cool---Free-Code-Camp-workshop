@@ -169,4 +169,3 @@ handleSubmit = (e) => {
 Note: You will not see the new data until you refresh the page.
 
 Complete add actor functionality before moving on.
-o
