@@ -128,3 +128,44 @@ Success! Apply a fetch to the actors, before moving on to the mutation.
 Checkout to branch `stage_2_apollo_mutations`
 We now have a form for a new movie, and a new actor.
 In this step we will hook the containers up to graph.cool
+
+stage_3_working_mutations has the solutions to post the data.
+
+Add the movie mutation to the add movie container
+
+```
+const addMovie = gql`
+  mutation addMovie($title: String!, $year: Float!) {
+    createMovie(title: $title, year: $year) {
+      id
+      title
+      year
+    }
+  }
+`
+const enhancer = compose(
+  graphql(addMovie, {name: 'addMovie'}),
+
+)
+
+export default enhancer(AddMovie)
+```
+
+Then use that mutation in your `handleSubmit` function
+
+```
+handleSubmit = (e) => {
+  e.preventDefault()
+  const variables = {
+    title: this.state.title,
+    year: Number(this.state.year)
+  }
+  this.props.addMovie({ variables })
+    .then(response => console.log('Success Creating Movie',response))
+    .catch(e => console.error('Error Creating Movie', e))
+}
+```
+
+Note: You will not see the new data until you refresh the page.
+
+Complete add actor functionality before moving on.
