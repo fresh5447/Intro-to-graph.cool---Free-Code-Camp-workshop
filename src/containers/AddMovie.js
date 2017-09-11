@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import {compose} from 'recompose'
 import AddMovieForm from '../components/AddMovieForm'
+
 
 class AddMovie extends Component {
   state = {
@@ -7,9 +11,15 @@ class AddMovie extends Component {
     year: ''
   }
 
-  handleSubmit = () => {
-    alert('submit triggered, view console for data values')
-    console.log(this.state)
+  handleSubmit = (e) => {
+    e.preventDefault()
+    const variables = {
+      title: this.state.title,
+      year: Number(this.state.year)
+    }
+    this.props.addMovie({ variables })
+      .then(response => console.log('Success Creating Movie',response))
+      .catch(e => console.error('Error Creating Movie', e))
   }
 
   handleUpdate = (field, value) => {
@@ -28,4 +38,20 @@ class AddMovie extends Component {
   }
 }
 
-export default AddMovie
+
+
+const addMovie = gql`
+  mutation addMovie($title: String!, $year: Float!) {
+    createMovie(title: $title, year: $year) {
+      id
+      title
+      year
+    }
+  }
+`
+const enhancer = compose(
+  graphql(addMovie, {name: 'addMovie'}),
+
+)
+
+export default enhancer(AddMovie)

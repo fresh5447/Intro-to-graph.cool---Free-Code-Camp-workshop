@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
+import {compose} from 'recompose'
 import AddActorForm from '../components/AddActorForm'
 
 class AddActor extends Component {
@@ -8,8 +11,12 @@ class AddActor extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    alert('submit triggered, view console for data values')
-    console.log(this.state)
+    const variables = {
+      name: this.state.name
+    }
+    this.props.addActor({ variables })
+      .then(response => console.log('Success Creating Actor',response))
+      .catch(e => console.error('Error Creating Actor', e))
   }
 
   handleUpdate = (field, value) => {
@@ -27,4 +34,17 @@ class AddActor extends Component {
   }
 }
 
-export default AddActor
+const addActor = gql`
+  mutation addActor($name: String!) {
+    createActor(name: $name) {
+      id
+      name
+    }
+  }
+`
+const enhancer = compose(
+  graphql(addActor, {name: 'addActor'}),
+
+)
+
+export default enhancer(AddActor)
