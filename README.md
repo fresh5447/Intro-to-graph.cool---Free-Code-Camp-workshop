@@ -75,6 +75,7 @@ a graphql server based on graphql spec
   - [graph.cool slack community](https://slack.graph.cool/)
   - [How to graphql](https://www.howtographql.com/)
   - [Building React Apps with GraphQL, Graphcool & Apollo](https://dev-blog.apollodata.com/building-react-apps-with-graphql-graphcool-apollo-a54215ccd202)
+  - [Apollo Client Developer Tools] (https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm?hl=en-US) // must have if you do react develeopent
 
 ----
 ### On to the repo
