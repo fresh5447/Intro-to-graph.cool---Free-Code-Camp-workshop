@@ -10,7 +10,15 @@ const Actors = (props) =>
       props.data.loading
       ? <h3> Loading Actors.. </h3>
       : (
-        props.data.allActors.map(a => <h3> {a.name}</h3>)
+        props.data.allActors.map(a => (
+          <div>
+            <h3> {a.name}</h3>
+            {a.movies && a.movies.length > 0
+              ? a.movies.map(m => <p> {m.title} </p>)
+              : <p> Actor has no movies </p>
+            }
+          </div>
+        ))
       )
     }
     <div>
@@ -20,7 +28,10 @@ const Actors = (props) =>
 
 const fetchAllActors = gql`query allActors {
   allActors {
-    name
+    name,
+    movies {
+      title
+    }
   }
 }`
 

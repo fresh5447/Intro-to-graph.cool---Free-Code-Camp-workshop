@@ -6,7 +6,8 @@ import AddActorForm from '../components/AddActorForm'
 
 class AddActor extends Component {
   state = {
-    name: ''
+    name: '',
+    movie: ''
   }
 
   handleSubmit = (e) => {
@@ -15,7 +16,13 @@ class AddActor extends Component {
       name: this.state.name
     }
     this.props.addActor({ variables })
-      .then(response => console.log('Success Creating Actor',response))
+      .then(response => {
+        const newVars = { actorsActorId: response.data.createActor.id, moviesMovieId: this.state.movie }
+        console.log(newVars)
+        return newVars
+      })
+      .then((vars) => this.props.addActorToMovie(vars))
+      .then(result => console.log('RESULT FROM ADDING ACTOR TO MOVIE', result))
       .catch(e => console.error('Error Creating Actor', e))
   }
 
@@ -26,11 +33,15 @@ class AddActor extends Component {
   }
 
   render () {
-    return <AddActorForm
+    return this.props.data.allMovies
+    ? <AddActorForm
       handleSubmit={this.handleSubmit}
       name={this.state.name}
       handleUpdate={this.handleUpdate}
-    />
+      movies={this.props.data.allMovies}
+    /> : (
+      <h1> Error must have movies </h1>
+    )
   }
 }
 
@@ -42,9 +53,27 @@ const addActor = gql`
     }
   }
 `
+const addActorToMovie = gql`
+  mutation ($actorsActorId: ID!, $moviesMovieId: ID!){
+      addToActorOnMovie(actorsActorId: $actorsActorId, moviesMovieId: $moviesMovieId) {
+        actorsActor {
+          id
+        }
+    }
+  }
+  `
+
+const fetchAllMovies = gql`query allMovies {
+  allMovies {
+    id
+    title
+  }
+}`
+
 const enhancer = compose(
   graphql(addActor, {name: 'addActor'}),
-
+  graphql(fetchAllMovies),
+  graphql(addActorToMovie, {name: 'addActorToMovie'})
 )
 
 export default enhancer(AddActor)
